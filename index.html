@@ -76,13 +76,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac)}inpu
 [hidden]{display:none!important}
 .toast{width:max-content;max-width:calc(100vw - 32px);text-align:center;line-height:1.4}
 .cx{margin-top:18px}
-.ad{position:fixed;inset:0;z-index:45;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));opacity:0;visibility:hidden;transform:translateY(24px);transition:opacity .3s,transform .35s,visibility 0s .35s}
+.ad{position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100%;box-sizing:border-box;-webkit-overflow-scrolling:touch;z-index:45;background:var(--bg);overflow-y:auto;overscroll-behavior:contain;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));opacity:0;visibility:hidden;transform:translateY(24px);transition:opacity .3s,transform .35s,visibility 0s .35s}
 .ad.o{opacity:1;visibility:visible;transform:none;transition:opacity .3s,transform .35s}
 .adh{position:sticky;top:0;z-index:2;background:rgba(6,10,17,.9);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
 .adh .w{display:flex;align-items:center;gap:10px;height:66px}
 .adh h3{font-size:18px;margin-right:auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .adh .btn{min-height:44px;padding:10px 16px;flex:none;min-width:44px;justify-content:center}
-.adw{max-width:760px}
+.adw{width:100%;max-width:760px;box-sizing:border-box}
 .ol{display:grid;gap:10px;margin-top:16px}
 .oi{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:var(--card);color:var(--tx);font:inherit;cursor:pointer;transition:border-color .25s,background .25s}
 .oi:hover,.oi:focus-visible{border-color:rgba(242,164,58,.55);background:rgba(242,164,58,.06);outline:none}
@@ -90,8 +90,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac)}inpu
 .sg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}.sg .tab{padding:8px 12px;font-size:14px;min-height:40px}
 .ck{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--tx);margin:16px 0;cursor:pointer}.ck input{width:20px;height:20px;min-height:0;padding:0;accent-color:var(--ac);flex:none}
 .emp{text-align:center;color:var(--mu);padding:32px 16px;border:1px dashed var(--line);border-radius:16px}
-.ad .card{backdrop-filter:none;background:#0e1520}
-@media(max-width:600px){.ad .a1{grid-template-columns:1fr}.ad .card{padding:18px}.adh .w{gap:8px}.adh .btn{padding:10px 12px}}
+.ad .card{backdrop-filter:none;background:#0e1520;width:100%;max-width:none;box-sizing:border-box}
+.ad input:not([type=checkbox]),.ad select,.ad textarea{width:100%;max-width:100%;box-sizing:border-box}
+@media(max-width:600px){.ad .w{padding-left:14px;padding-right:14px}.ad .a1{grid-template-columns:1fr}.ad .card{padding:18px 14px}.adh .w{gap:8px}.adh .btn{padding:10px 12px}}
 footer{border-top:1px solid var(--line);padding:32px 0 90px;color:var(--mu);font-size:14px}
 @media(max-width:980px){.g5{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:860px){.calc,.g2,.g3{grid-template-columns:1fr}.links{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;background:var(--bg);padding:12px;border-bottom:1px solid var(--line);margin:0}.links.o{display:flex}.menu{display:block;margin-left:auto;padding:8px 14px;min-height:40px}.nb{display:none}
@@ -373,7 +374,7 @@ const BB=TG&&TG.BackButton&&TG.isVersionAtLeast&&TG.isVersionAtLeast('6.1')?TG.B
 const inForm=()=>!$('#adf').hidden;
 const adBack=()=>{if(inForm())showList();else closeAd()};
 if(BB)BB.onClick(()=>{if(ad.classList.contains('o'))adBack()});
-function openAd(){ad.classList.add('o');document.body.style.overflow='hidden';if(BB)BB.show();showList();loadList()}
+function openAd(){try{TG&&TG.expand&&TG.expand()}catch(e){}ad.classList.add('o');document.body.style.overflow='hidden';if(BB)BB.show();showList();loadList()}
 function closeAd(){ad.classList.remove('o');document.body.style.overflow='';if(BB)BB.hide()}
 function showList(){$('#adf').hidden=true;$('#adl').hidden=false;$('#adb').hidden=true;$('#adn').hidden=false;$('#adt').textContent='Заказы';renderList();ad.scrollTop=0}
 const me=()=>ME&&ME.uid?'Ваш Telegram ID: '+ME.uid:'';
